@@ -1,0 +1,70 @@
+1. Identification of Vowels and Consonants 
+
+%option noyywrap
+%%
+[aeiouAEIOU]    printf("%s is vowel\n",yytext); 
+[a-zA-Z]	printf("%s is consonant\n",yytext);
+.		printf("%s is invalid lexeme\n",yytext);
+%%
+main()
+{ yylex(); }
+
+
+2. Count the number of Lines in given input 
+
+%option noyywrap
+%{
+  int num_lines=0;
+%}
+%%
+\n	++num_lines;
+.
+%%
+main()
+{
+  yylex();
+  printf("no. of lines=%d",num_lines);
+}
+
+
+3. Count number of vowels and consonants 
+
+%option noyywrap
+%{
+  int v=0,c=0;
+%}
+%%
+[aeiouAEIOU]    ++v; 
+[a-zA-Z]	++c;
+.	
+%%
+main()
+{
+  yylex();
+  printf(" no. of vowels=%d \n no.of consonants=%d",v,c);
+}
+
+
+4. Recognize strings ending with 00 
+
+%option noyywrap
+%%
+[0-9]*00	printf("string accepted\n");
+[0-9]*		printf("string rejected\n");
+.*		printf("invalid string\n");
+%%
+main()
+{ yylex(); }
+
+
+5. Recognize a string with three consecutive 0’s 
+
+%option noyywrap
+%%
+[0-9]000[0-9]	  printf("string accepted\n");
+[0-9]*		  printf("string rejected\n");
+.*		  printf("invalid string\n");
+%%
+main()
+{ yylex(); }
+
